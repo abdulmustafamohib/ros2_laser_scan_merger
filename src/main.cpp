@@ -85,7 +85,7 @@ private:
         }
 
         float range = laser1_->ranges[used_count_];
-        if (!std::isfinite(range) || range <= 0.0f) {
+        if (!std::isfinite(range) || range <= laser1_->range_min || range >= laser1_->range_max) {
           count++;
           continue;
         }
@@ -147,7 +147,7 @@ private:
     if (show2_ && laser2_)
     {
       float temp_min_, temp_max_;
-      if( laser2_->angle_min < laser2_->angle_max){
+      if(!std::isfinite(range) || range <= laser2_->range_min || range >= laser2_->range_max){
         temp_min_ = laser2_->angle_min;
         temp_max_ = laser2_->angle_max;
       } else{
